@@ -14,8 +14,12 @@ blog_app = Blueprint('blog', __name__, static_folder='static', template_folder='
 
 @blog_app.route('/', methods=['GET'])
 def index():
-    # TODO: post list home
-    return render_template('blog/index.html')
+    post_items = (db.session
+                    .query(PostItem.id, PostItem.title, PostItem.created_at)
+                    .order_by(PostItem.created_at.desc())
+                    .all())
+    return render_template('blog/index.html', post_items=post_items)
+
 
 @blog_app.route('/post', methods=['GET', 'POST'])
 def post_item():

@@ -3,5 +3,10 @@
 {% block content %}
     <h2>Home</h2>
     <p>blog home</p>
-    {# TODO: 一覧 #}
+    {% for post_item in post_items %}
+        <p>
+            <span>{{ post_item.created_at.strftime('%Y%m%d') }}</span>
+            <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}">{{ post_item.title }}</a>
+        </p>
+    {% endfor %}
 {% endblock %}
