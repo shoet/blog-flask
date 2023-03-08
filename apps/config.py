@@ -17,7 +17,20 @@ class DevConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     SQLALCHEMY_ECHO=True
 
+class TestConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI=(
+        f'postgresql://{os.environ["PG_HOST_TEST"]}:' 
+        + f'{os.environ["PG_PORT_TEST"]}/'
+        + f'{os.environ["PG_DB_TEST"]}?' 
+        + f'user={os.environ["PG_USER_TEST"]}&'
+        + f'password={os.environ["PG_PASSWORD_TEST"]}&'
+        + f'options=-c%20search_path={os.environ["PG_SCHEMA_TEST"]}')
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_ECHO=True
+    WTF_CSRF_ENABLED = False
+
 config = {
     'dev': DevConfig,
+    'test': TestConfig,
 }
     
