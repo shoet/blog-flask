@@ -7,8 +7,11 @@ class PostItem(db.Model):
     __tablename__ = 'post_item'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
-    body = db.Column(db.String)
+    body = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
+    category = db.Column(db.String, nullable=False)
     is_public = db.Column(db.Boolean, default=True)
+    thumbnail_image_name = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 

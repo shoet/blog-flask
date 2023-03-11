@@ -2,7 +2,7 @@
 {% block title %}PostItem{% endblock %}
 {% block content %}
 <h2>投稿</h2>
-<form action="" method="post" novalidate="novalidate">
+<form action="{{ url_for('blog.post_item') }}" method="post" enctype="multipart/form-data" novalidate="novalidate">
     {% for message in get_flashed_messages() %}
     <span>{{ message }}</span>
     {% endfor %}
@@ -21,7 +21,15 @@
 
     {{ form.csrf_token }}
 
+    <div>
+        <label>
+            <span>{{ form.thumbnail_image(class="form-control-file") }}</span>
+        </label>
+    </div>
+
     {{ form.title(placeholder='タイトル') }}
+
+    {{ form.category(placeholder='カテゴリ') }}
 
     {{ form.body(placeholder='本文') }}
 
