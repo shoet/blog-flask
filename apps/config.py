@@ -1,9 +1,14 @@
 import os
 
+from pathlib import Path
+
+basedir = Path(__file__).parent.parent
+
 
 class BaseConfig():
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG_TB_INTERCEPT_REDIRECTS = False
+    IMAGE_PATH = str(basedir / 'apps' / 'images')
 
 
 class DevConfig(BaseConfig):

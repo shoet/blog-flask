@@ -32,7 +32,7 @@ def create_app(env):
     app.register_blueprint(admin_views.admin_app, url_prefix='/admin')
 
     from apps.blog import views as blog_views
-    app.register_blueprint(blog_views.blog_app, url_prefix='/blog') # TODO: 変える
+    app.register_blueprint(blog_views.blog, url_prefix='/') # TODO: 変える
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, internal_server_error)
