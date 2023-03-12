@@ -21,6 +21,27 @@ import markdown
 
 blog = Blueprint('blog', __name__, static_folder='static', template_folder='templates')
 
+def unmark(body):
+    html_str = markdown.markdown(body)
+    text = ''.join(BeautifulSoup(html_str).findAll(text=True))
+    unescaped_text = html.unescape(text) 
+    return unescaped_text
+
+def save_thumbnail_image(image):
+    file = image.data
+    ext = Path(file.filename).suffix
+    image_uuid_file_name = str(uuid.uuid4()) + ext
+    image_path = Path(current_app.config['IMAGE_PATH'], 'thumbnail' ,image_uuid_file_name)
+    file.save(image_path)
+    return image_uuid_file_name
+
+def save_file_remote():
+    # TODO: ストレージサービス
+    pass
+
+def send_from_remote_file():
+    # TODO: ストレージサービス
+    pass
 
 @blog.route('/', methods=['GET'])
 def index():
@@ -38,25 +59,6 @@ def index():
                     .all())
     return render_template('blog/index.html', post_items=post_items)
 
-
-def save_thumbnail_image(image):
-    file = image.data
-    ext = Path(file.filename).suffix
-    image_uuid_file_name = str(uuid.uuid4()) + ext
-    image_path = Path(current_app.config['IMAGE_PATH'], 'thumbnail' ,image_uuid_file_name)
-    file.save(image_path)
-    return image_uuid_file_name
-
-
-def save_file_remote():
-    # TODO: ストレージサービス
-    pass
-
-
-def send_from_remote_file():
-    # TODO: ストレージサービス
-    pass
-    
 
 @blog.route('/images/<filename>', methods=['GET'])
 def thumbnail_image_file(filename):
