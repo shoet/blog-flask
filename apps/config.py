@@ -9,6 +9,8 @@ class BaseConfig():
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     IMAGE_PATH = str(basedir / 'apps' / 'images')
+    NOTIFY_SLACK_BOT_TOKEN = os.environ['NOTIFY_SLACK_BOT_TOKEN']
+    NOTIFY_SLACK_CHANNEL = os.environ['NOTIFY_SLACK_CHANNEL']
 
 
 class DevConfig(BaseConfig):
