@@ -18,6 +18,7 @@ load_dotenv()
 
 db = SQLAlchemy()
 debug_toolbar = DebugToolbarExtension()
+login_manager = LoginManager()
 
 def create_app(env):
     app = Flask(__name__)
@@ -27,9 +28,10 @@ def create_app(env):
     db.init_app(app)
     Migrate(app, db)
     debug_toolbar.init_app(app)
+    login_manager.init_app(app)
 
     from apps.admin import views as admin_views
-    app.register_blueprint(admin_views.admin_app, url_prefix='/admin')
+    app.register_blueprint(admin_views.admin, url_prefix='/admin')
 
     from apps.blog import views as blog_views
     app.register_blueprint(blog_views.blog, url_prefix='/') # TODO: 変える
