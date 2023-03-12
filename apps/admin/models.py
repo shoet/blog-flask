@@ -23,6 +23,12 @@ class AdminUser(db.Model, UserMixin):
     def password(self, password):
         self.password_hash = generate_password_hash(password)
 
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def is_duplicate_email(self):
+        return AdminUser.query.filter_by(email=self.email).first() is not None
+
 @login_manager.user_loader
 def load_user(user_id):
-    return AdminUser.get(user_id)
+    return AdminUser.query.get(user_id)

@@ -4,10 +4,13 @@ from dotenv import load_dotenv
 from flask import (
     Flask,
     render_template,
+    redirect, 
+    url_for
 )
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_login import LoginManager
 
 from apps.config import config
 
@@ -19,6 +22,8 @@ load_dotenv()
 db = SQLAlchemy()
 debug_toolbar = DebugToolbarExtension()
 login_manager = LoginManager()
+# login_manager.login_view = ''
+# login_manager.login_message = ''
 
 def create_app(env):
     app = Flask(__name__)
@@ -48,3 +53,7 @@ def page_not_found(e):
 
 def internal_server_error(e):
     return render_template('500.html'), 500
+
+@login_manager.unauthorized_handler
+def page_unauthorized():
+    return redirect(url_for('blog.index'))

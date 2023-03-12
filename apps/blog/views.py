@@ -1,3 +1,4 @@
+import os
 import uuid
 from pathlib import Path
 import html
@@ -13,6 +14,7 @@ from flask import (
     current_app,
     send_from_directory
 )
+from flask_login import login_required
 
 from apps.app import db
 from apps.blog.models import PostItem
@@ -66,14 +68,8 @@ def thumbnail_image_file(filename):
     return send_from_directory(Path(current_app.config['IMAGE_PATH'], 'thumbnail'), filename)
 
 
-def unmark(body):
-    html_str = markdown.markdown(body)
-    text = ''.join(BeautifulSoup(html_str).findAll(text=True))
-    unescaped_text = html.unescape(text) 
-    return unescaped_text
-
-
-@blog.route('/post', methods=['GET', 'POST'])
+@blog.route(f'/{os.environ["PAGE_POST_ITEM_ROUTE"]}', methods=['GET', 'POST'])
+@login_required
 def post_item():
     form = PostForm()
     # TODO: 画像の差し込みについて
@@ -103,7 +99,7 @@ def post_item():
     return render_template('blog/post.html', form=form)
 
 
-@blog.route('/<post_item_id>', methods=['GET'])
+@blog.route('/activities/<post_item_id>', methods=['GET'])
 def edit_item(post_item_id):
     post_item = db.session.query(PostItem).filter(PostItem.id == post_item_id).first()
 
