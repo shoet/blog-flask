@@ -17,6 +17,14 @@
                         >
                         <div class="card-body">
                             <h3 class="card-title">{{ post_item.title }}</h5>
+                            <div class="container tags">
+                                {# 固定変更 #}
+                                <div class="row row-cols-auto">
+                                    <div class="col tag">Python</div>
+                                    <div class="col tag">Flask</div>
+                                    <div class="col tag">OpenCV</div>
+                                </div>
+                            </div>
                             <p class="card-text">{{ post_item.description + '...' }}</p>
                         </div>
                     </div>
