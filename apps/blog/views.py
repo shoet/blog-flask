@@ -106,5 +106,5 @@ def edit_item(post_item_id):
     if post_item is None:
         abort(404)
     
-    md_content = Markup(markdown.markdown(post_item.body))
+    md_content = Markup(markdown.markdown(post_item.body, extensions=['fenced_code']))
     return render_template('blog/edit.html', post_item=post_item, md_content=md_content)
