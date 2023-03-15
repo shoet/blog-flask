@@ -1,37 +1,34 @@
 {% extends 'blog/base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<div class="content">
-    <section>
-        <h2>記事一覧</h2>
-        <p>blog home</p>
-        <div class="row">
-            {% for post_item in post_items %}
-            <div class="col-md-4 mb-3">
-                <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}">
-                    <div class="card text-dark">
-                        <img 
-                            src="{{ url_for('blog.thumbnail_image_file', filename=post_item.thumbnail_image_name) }}" 
-                            class="card-img-top custom-card-img-top"
-                            alt="thumbnail"
-                        >
-                        <div class="card-body">
-                            <h3 class="card-title">{{ post_item.title }}</h5>
-                            <div class="container tags">
-                                {# 固定変更 #}
-                                <div class="row row-cols-auto">
-                                    <div class="col tag">Python</div>
-                                    <div class="col tag">Flask</div>
-                                    <div class="col tag">OpenCV</div>
-                                </div>
-                            </div>
-                            <p class="card-text">{{ post_item.description + '...' }}</p>
-                        </div>
-                    </div>
-                </a>
+<div class="container">
+    <h1 class="display-6">記事一覧</h1>
+    <p>blog home</p>
+    <div class="row">
+        {% for post_item in post_items %}
+        <div class="col-md-4 mb-3">
+            <div class="card text-dark">
+                <img 
+                    src="{{ url_for('blog.thumbnail_image_file', filename=post_item.thumbnail_image_name) }}" 
+                    class="card-img-top custom-card-img-top"
+                    alt="thumbnail"
+                >
+                <div class="card-body">
+                    <h4 class="card-title">{{ post_item.title }}</h5>
+                    <ul class="list-inline">
+                        <span class="badge rounded-pill bg-dark">Python</span>
+                        <span class="badge rounded-pill bg-dark">Flask</span>
+                        <span class="badge rounded-pill bg-dark">Docker</span>
+                        <span class="badge bg-dark">Python</span>
+                        <span class="badge bg-dark">Flask</span>
+                        <span class="badge bg-dark">Docker</span>
+                    </ul>
+                    <p class="card-text">{{ post_item.description + '...' }}</p>
+                </div>
+                <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}" class="stretched-link"></a>
             </div>
-            {% endfor %}
         </div>
-    </section>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
