@@ -12,6 +12,16 @@ class BaseConfig():
     NOTIFY_SLACK_BOT_TOKEN = os.environ['NOTIFY_SLACK_BOT_TOKEN']
     NOTIFY_SLACK_CHANNEL = os.environ['NOTIFY_SLACK_CHANNEL']
 
+class ProdConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI=(
+        f'postgresql://{os.environ["PG_HOST_PROD"]}:' 
+        + f'{os.environ["PG_PORT_PROD"]}/'
+        + f'{os.environ["PG_DB_PROD"]}?' 
+        + f'user={os.environ["PG_USER_PROD"]}&'
+        + f'password={os.environ["PG_PASSWORD_PROD"]}&'
+        + f'options=-c%20search_path={os.environ["PG_SCHEMA_PROD"]}')
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_ECHO=True
 
 class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI=(
@@ -39,5 +49,6 @@ class TestConfig(BaseConfig):
 config = {
     'dev': DevConfig,
     'test': TestConfig,
+    'prod': ProdConfig,
 }
     
