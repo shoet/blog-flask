@@ -31,6 +31,11 @@ def login():
 
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user)
+            notify.slack_post(
+                bot_token=current_app.config['NOTIFY_SLACK_BOT_TOKEN'],
+                channel=current_app.config['NOTIFY_SLACK_CHANNEL'],
+                message=f'ユーザ[{user.email}]がログインしました。'
+            )
             return redirect(url_for('blog.index')) # TODO: to edit
 
         flash('メールアドレスかパスワードが不正です。')

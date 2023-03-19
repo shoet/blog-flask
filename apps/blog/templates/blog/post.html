@@ -27,14 +27,14 @@
         </label>
     </div>
 
-    {{ form.title(placeholder='タイトル') }}
+    {{ form.title(placeholder='タイトル', class="form-control") }}
 
-    {{ form.category(placeholder='カテゴリ') }}
+    {{ form.category(placeholder='カテゴリ', class="form-control") }}
 
-    {{ form.body(placeholder='本文') }}
+    {{ form.body(placeholder='本文', class="form-control") }}
 
-    {{ form.is_public(placeholder='公開') }}
+    {{ form.is_public(placeholder='公開', class="form-control") }}
 
-    {{ form.submit() }}
+    {{ form.submit(value='Post', class="btn btn-primary") }}
 </form>
 {% endblock %}

@@ -1,9 +1,9 @@
 {% extends 'admin/base.html' %}
-{% block title %}ログイン{% endblock %}
+{% block title %}SignIn{% endblock %}
 {% block content %}
-    <div class="mx-auto">
+    <div class="mx-auto login-main">
         <div class="card">
-            <header>ログイン</header>
+            <header>Login</header>
             <section>
                 <form action="{{ url_for('admin.login') }}" method="POST" novalidate="novalidate">
                     {% for message in get_flashed_messages() %}
@@ -12,17 +12,17 @@
     
                     {{ form.csrf_token }}
     
-                    {{ form.email(placeholder='メールアドレス') }}
+                    {{ form.email(placeholder='Email', class='form-control login-main-input') }}
                     {% for error in form.email.errors %}
                     <div>{{ error }}</div>
                     {% endfor %}
     
-                    {{ form.password(placeholder='パスワード') }}
+                    {{ form.password(placeholder='Password', class='form-control login-main-input') }}
                     {% for error in form.password.errors %}
                     <div>{{ error }}</div>
                     {% endfor %}
     
-                    {{ form.submit(class="btn btn-primary") }}
+                    {{ form.submit(value='SignIn', class='btn btn-success float-end login-main-input') }}
                 </form>
             </section>
         </div>
