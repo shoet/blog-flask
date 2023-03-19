@@ -11,6 +11,7 @@ class BaseConfig():
     IMAGE_PATH = str(basedir / 'apps' / 'images')
     NOTIFY_SLACK_BOT_TOKEN = os.environ['NOTIFY_SLACK_BOT_TOKEN']
     NOTIFY_SLACK_CHANNEL = os.environ['NOTIFY_SLACK_CHANNEL']
+    APP_TITLE = os.environ['APP_TITLE']
 
 class ProdConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI=(
