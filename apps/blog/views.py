@@ -62,7 +62,7 @@ def index():
     return render_template('blog/index.html', post_items=post_items)
 
 
-@blog.route('/images/<filename>', methods=['GET'])
+@blog.route('/images/<string:filename>', methods=['GET'])
 def thumbnail_image_file(filename):
     print(filename)
     return send_from_directory(Path(current_app.config['IMAGE_PATH'], 'thumbnail'), filename)
@@ -99,7 +99,7 @@ def post_item():
     return render_template('blog/post.html', form=form)
 
 
-@blog.route('/activities/<post_item_id>', methods=['GET'])
+@blog.route('/activities/<int:post_item_id>', methods=['GET'])
 def edit_item(post_item_id):
     post_item = db.session.query(PostItem).filter(PostItem.id == post_item_id).first()
 
