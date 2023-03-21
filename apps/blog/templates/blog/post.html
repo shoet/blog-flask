@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% block title %}PostItem{% endblock %}
+{% block content %}
+<h2>投稿</h2>
+<form action="{{ url_for('blog.post_item') }}" method="post" enctype="multipart/form-data" novalidate="novalidate">
+    {% for message in get_flashed_messages() %}
+    <span>{{ message }}</span>
+    {% endfor %}
+
+    {% for error in form.title.errors %}
+    <span>{{ error }}</span>
+    {% endfor %}
+
+    {% for error in form.body.errors %}
+    <span>{{ error }}</span>
+    {% endfor %}
+
+    {% for error in form.is_public.errors %}
+    <span>{{ error }}</span>
+    {% endfor %}
+
+    {{ form.csrf_token }}
+
+    <div>
+        <label>
+            <span>{{ form.thumbnail_image(class="form-control-file") }}</span>
+        </label>
+    </div>
+
+    {{ form.title(placeholder='タイトル', class="form-control") }}
+
+    {{ form.category(placeholder='カテゴリ', class="form-control") }}
+
+    {{ form.body(placeholder='本文', class="form-control") }}
+
+    {{ form.is_public(placeholder='公開', class="form-control") }}
+
+    {{ form.submit(value='Post', class="btn btn-primary") }}
+</form>
+{% endblock %}

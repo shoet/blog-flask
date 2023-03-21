@@ -1,0 +1,45 @@
+body {
+    background-color: #f5f5f5;
+}
+.home-item {
+    margin: 10px;
+}
+.custom-card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.card {
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.card-body {
+    height: 200px;
+    object-fit: cover;
+    font-weight: 500;
+    font-size: 1em;
+}
+.page-content {
+    padding-top: 30px;
+}
+.edit-content {
+    max-width: 587px;
+}
+.login-main {
+    width: 400px;
+    margin-top: 45px;
+}
+.login-main .card {
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    border-radius: 16px;
+}
+.login-main header {
+    text-align: center;
+    margin: 10px 0 0 0;
+    font-size: 24px;
+}
+.login-main section {
+    width: 300px;
+    margin: 10px auto;
+}
+.login-main .login-main-input {
+    margin-top: 10px;
+}
