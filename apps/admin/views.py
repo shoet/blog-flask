@@ -36,7 +36,7 @@ def login():
                 channel=current_app.config['NOTIFY_SLACK_CHANNEL'],
                 message=f'ユーザ[{user.email}]がログインしました。'
             )
-            return redirect(url_for('blog.index')) # TODO: to edit
+            return redirect(url_for('blog.post_item'))
 
         flash('メールアドレスかパスワードが不正です。')
     return render_template('admin/login.html', form=login_form)
