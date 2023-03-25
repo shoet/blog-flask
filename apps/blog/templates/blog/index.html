@@ -16,12 +16,10 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ post_item.title }}</h5>
                     <ul class="list-inline">
-                        <span class="badge rounded-pill bg-dark">Python</span>
-                        <span class="badge rounded-pill bg-dark">Flask</span>
-                        <span class="badge rounded-pill bg-dark">Docker</span>
-                        <span class="badge bg-dark">Python</span>
-                        <span class="badge bg-dark">Flask</span>
-                        <span class="badge bg-dark">Docker</span>
+                        {% for tag in post_item.post_tags %}
+                        <!-- <span class="badge rounded-pill bg-dark">{{ tag.tag_name }}</span> -->
+                        <span class="badge bg-dark">{{ tag.tag_name }}</span>
+                        {% endfor %}
                     </ul>
                     <p class="card-text">{{ post_item.description + '...' }}</p>
                 </div>

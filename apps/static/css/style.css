@@ -1,6 +1,4 @@
-body {
-    background-color: #f5f5f5;
-}
+/* home page */
 .home-item {
     margin: 10px;
 }
@@ -20,19 +18,21 @@ body {
 .page-content {
     padding-top: 30px;
 }
-.edit-content h1 {
+/* detail page content */
+.detail-content h1 {
     padding-bottom: 30px;
 }
-.edit-content h2 {
+.detail-content h2 {
     padding-top: 20px;
     border-bottom: 1px solid #dee2e6!important
 }
-.edit-content pre {
+.detail-content pre {
     padding: 5px;
     color: white;
     background-color: black;
     font-size: 13px;
 }
+/* login page */
 .login-main {
     width: 400px;
     margin-top: 45px;

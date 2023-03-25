@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ post_item.title }}{% endblock %}
+{% block content %}
+    {# サムネイル #}
+    {# <h2>{{ post_item.title }}</h2> #}
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="detail-content">
+                    <h1 class="fw-bold">{{ post_item.title }}</h1>
+                    <ul class="list-inline">
+                        {% for tag in post_item.post_tags %}
+                        <!-- <span class="badge rounded-pill bg-dark">{{ tag.tag_name }}</span> -->
+                        <span class="badge bg-dark">{{ tag.tag_name }}</span>
+                        {% endfor %}
+                    </ul>
+                    {{ md_content }}
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </section>
+{% endblock %}
