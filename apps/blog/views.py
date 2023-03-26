@@ -116,4 +116,4 @@ def edit_item(post_item_id):
         abort(404)
     
     md_content = Markup(markdown.markdown(post_item.body, extensions=['fenced_code']))
-    return render_template('blog/edit.html', post_item=post_item, md_content=md_content)
+    return render_template('blog/detail.html', post_item=post_item, md_content=md_content)

@@ -37,9 +37,7 @@
 
             <div class="mb-3">
                 <label class="form-label" for="file1">サムネイル画像</label>
-                <div>
-                    {{ form.thumbnail_image(id="file1", class="form-control") }}
-                </div>
+                {{ form.thumbnail_image(id="file1", class="form-control") }}
             </div>
 
             <div class="mb-3">
@@ -53,7 +51,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="content1">カテゴリ</label>
+                <label class="form-label" for="content1">本文</label>
                 {{ form.body(id='content1', placeholder='本文', class="form-control post-main-input", rows=15) }}
             </div>
 
@@ -70,7 +68,10 @@
                 </label>
             </div>
 
-            {{ form.submit(value='Post', class="btn btn-success float-end post-main-input") }}
+            <div class="float-end">
+                {{ form.submit(value='Preview', class="btn btn-success post-main-input me-3") }}
+                {{ form.submit(value='Post', class="btn btn-success post-main-input") }}
+            </div>
         </form>
     </div>
 </div>
