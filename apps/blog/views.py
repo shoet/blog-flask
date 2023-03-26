@@ -70,7 +70,7 @@ def thumbnail_image_file(filename):
 
 def split_tags(tag):
     tag_obj = []
-    for t in tag.split(', '):
+    for t in tag.split(','):
         tag_obj.append(PostTag(tag_name=t))
     return tag_obj
 

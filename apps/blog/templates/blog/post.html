@@ -104,7 +104,9 @@
         current_input.setAttribute('placeholder', 'タグ')
         current_input.addEventListener('keypress', (e) => {
             if (e.key == ' ') {
-                tagList.push(current_input.value)
+                let tag = current_input.value.trim()
+                if (tag == '') return
+                tagList.push(tag)
                 RenderTag()
                 current_input.focus()
             }
