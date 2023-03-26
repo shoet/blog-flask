@@ -17,7 +17,7 @@ from flask import (
 from flask_login import login_required
 
 from apps.app import db
-from apps.blog.models import PostItem
+from apps.blog.models import PostItem, PostTag
 from apps.blog.forms import PostForm
 import markdown
 
@@ -68,6 +68,13 @@ def thumbnail_image_file(filename):
     return send_from_directory(Path(current_app.config['IMAGE_PATH'], 'thumbnail'), filename)
 
 
+def split_tags(tag):
+    tag_obj = []
+    for t in tag.split(', '):
+        tag_obj.append(PostTag(tag_name=t))
+    return tag_obj
+
+
 @blog.route(f'/{os.environ["PAGE_POST_ITEM_ROUTE"]}', methods=['GET', 'POST'])
 @login_required
 def post_item():
@@ -84,6 +91,7 @@ def post_item():
         description = unmark(body)[:30]
         thumbnail_image_name = save_thumbnail_image(form.thumbnail_image)
         is_public = form.is_public.data
+        post_tags = split_tags(form.tag.data)
         post_item = PostItem(
             title=title, 
             body=body, 
@@ -91,6 +99,7 @@ def post_item():
             category=category,
             is_public=is_public,
             thumbnail_image_name=thumbnail_image_name,
+            post_tags=post_tags,
             )
         db.session.add(post_item)
         db.session.commit()
@@ -107,4 +116,4 @@ def edit_item(post_item_id):
         abort(404)
     
     md_content = Markup(markdown.markdown(post_item.body, extensions=['fenced_code']))
-    return render_template('blog/edit.html', post_item=post_item, md_content=md_content)
+    return render_template('blog/detail.html', post_item=post_item, md_content=md_content)

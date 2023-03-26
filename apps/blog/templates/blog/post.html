@@ -1,40 +1,131 @@
 {% extends 'blog/base.html' %}
 {% block title %}PostItem{% endblock %}
 {% block content %}
-<h2>投稿</h2>
-<form action="{{ url_for('blog.post_item') }}" method="post" enctype="multipart/form-data" novalidate="novalidate">
-    {% for message in get_flashed_messages() %}
-    <span>{{ message }}</span>
-    {% endfor %}
+<div class="container">
+    <h1 class="display-6">Post</h1>
+    <div class="mx-auto post-main">
+        <form action="{{ url_for('blog.post_item') }}" method="post" enctype="multipart/form-data" novalidate="novalidate">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
 
-    {% for error in form.title.errors %}
-    <span>{{ error }}</span>
-    {% endfor %}
+            {% for error in form.title.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
 
-    {% for error in form.body.errors %}
-    <span>{{ error }}</span>
-    {% endfor %}
+            {% for error in form.body.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
 
-    {% for error in form.is_public.errors %}
-    <span>{{ error }}</span>
-    {% endfor %}
+            {% for error in form.is_public.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
 
-    {{ form.csrf_token }}
+            {{ form.csrf_token }}
 
-    <div>
-        <label>
-            <span>{{ form.thumbnail_image(class="form-control-file") }}</span>
-        </label>
+            <div class="mb-3">
+                <label class="form-label" for="file1">サムネイル画像</label>
+                {{ form.thumbnail_image(id="file1", class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="title1">タイトル</label>
+                {{ form.title(id='title1', placeholder='タイトル', class="form-control post-main-input") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="category1">カテゴリ</label>
+                {{ form.category(id='category1', placeholder='カテゴリ', class="form-control post-main-input") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="content1">本文</label>
+                {{ form.body(id='content1', placeholder='本文', class="form-control post-main-input", rows=15) }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="tag1">タグ</label>
+                <div class="form-control tag-form" id="tag-form">
+                </div>
+                {{ form.tag(id='tag-form-hidden') }}
+            </div>
+
+            <div class="mb-3 d-flex justify-content-end">
+                <label class="form-label" for="public1">
+                    公開する {{ form.is_public(id='public1', placeholder='公開', class="") }}
+                </label>
+            </div>
+
+            <div class="float-end">
+                {{ form.submit(value='Preview', class="btn btn-success post-main-input me-3") }}
+                {{ form.submit(value='Post', class="btn btn-success post-main-input") }}
+            </div>
+        </form>
     </div>
+</div>
+<script>
+    let parent = document.getElementById('tag-form')
+    let tagList = []
+    let current_input
+    let buf = document.getElementById('tag-form-hidden')
 
-    {{ form.title(placeholder='タイトル', class="form-control") }}
+    function RenderTag() {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        let form_ul = document.createElement('ul')
+        form_ul.id = 'tag-form-ul'
 
-    {{ form.category(placeholder='カテゴリ', class="form-control") }}
+        tagList.forEach((val, idx) => {
+            let li = document.createElement('li');
+            badge_html = `${val} <a>&times;</a>`;
+            li.innerHTML = badge_html;
+            li.className = 'badge bg-dark text-light';
+            li.querySelector('a').addEventListener('click', function() {
+                onDelete(idx)
+            })
+            form_ul.appendChild(li);
+        })
 
-    {{ form.body(placeholder='本文', class="form-control") }}
+        current_input = document.createElement('input')
+        current_input.setAttribute('type', 'text')
+        current_input.setAttribute('placeholder', 'タグ')
+        current_input.addEventListener('keypress', (e) => {
+            if (e.key == ' ') {
+                tagList.push(current_input.value)
+                RenderTag()
+                current_input.focus()
+            }
+        }, false);
 
-    {{ form.is_public(placeholder='公開', class="form-control") }}
+        form_ul.appendChild(current_input)
+        parent.appendChild(form_ul)
+        buf.value = tagList
 
-    {{ form.submit(value='Post', class="btn btn-primary") }}
-</form>
+    }
+
+    function onDelete(id) {
+        tagList = tagList.filter(function (val, idx) {
+            if (idx == id) {
+                return false
+            }
+            return val
+        })
+        RenderTag()
+    }
+
+    RenderTag()
+</script>
 {% endblock %}

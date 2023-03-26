@@ -1,5 +1,5 @@
 from flask_wtf.form import FlaskForm
-from wtforms.fields import StringField, TextAreaField, BooleanField, SubmitField
+from wtforms.fields import StringField, TextAreaField, BooleanField, SubmitField, HiddenField
 from wtforms.validators import DataRequired, Length
 from flask_wtf.file import FileAllowed, FileRequired, FileField
 
@@ -26,6 +26,11 @@ class PostForm(FlaskForm):
             DataRequired(message='カテゴリは必須です。'),
             Length(max=50, message='50文字以内で入力してください。'),
         ]
+    )
+
+    tag = HiddenField(
+        'タグ',
+        validators=[]
     )
 
     is_public = BooleanField(
