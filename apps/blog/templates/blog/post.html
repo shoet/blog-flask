@@ -57,6 +57,13 @@
                 {{ form.body(id='content1', placeholder='本文', class="form-control post-main-input", rows=15) }}
             </div>
 
+            <div class="mb-3">
+                <label class="form-label" for="tag1">タグ</label>
+                <div class="form-control tag-form" id="tag-form">
+                </div>
+                {{ form.tag(id='tag-form-hidden') }}
+            </div>
+
             <div class="mb-3 d-flex justify-content-end">
                 <label class="form-label" for="public1">
                     公開する {{ form.is_public(id='public1', placeholder='公開', class="") }}
@@ -67,4 +74,57 @@
         </form>
     </div>
 </div>
+<script>
+    let parent = document.getElementById('tag-form')
+    let tagList = []
+    let current_input
+    let buf = document.getElementById('tag-form-hidden')
+
+    function RenderTag() {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        let form_ul = document.createElement('ul')
+        form_ul.id = 'tag-form-ul'
+
+        tagList.forEach((val, idx) => {
+            let li = document.createElement('li');
+            badge_html = `${val} <a>&times;</a>`;
+            li.innerHTML = badge_html;
+            li.className = 'badge bg-dark text-light';
+            li.querySelector('a').addEventListener('click', function() {
+                onDelete(idx)
+            })
+            form_ul.appendChild(li);
+        })
+
+        current_input = document.createElement('input')
+        current_input.setAttribute('type', 'text')
+        current_input.setAttribute('placeholder', 'タグ')
+        current_input.addEventListener('keypress', (e) => {
+            if (e.key == ' ') {
+                tagList.push(current_input.value)
+                RenderTag()
+                current_input.focus()
+            }
+        }, false);
+
+        form_ul.appendChild(current_input)
+        parent.appendChild(form_ul)
+        buf.value = tagList
+
+    }
+
+    function onDelete(id) {
+        tagList = tagList.filter(function (val, idx) {
+            if (idx == id) {
+                return false
+            }
+            return val
+        })
+        RenderTag()
+    }
+
+    RenderTag()
+</script>
 {% endblock %}

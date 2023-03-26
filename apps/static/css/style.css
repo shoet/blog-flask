@@ -18,6 +18,7 @@
 .page-content {
     padding-top: 30px;
 }
+
 /* detail page content */
 .detail-content h1 {
     padding-bottom: 30px;
@@ -32,6 +33,7 @@
     background-color: black;
     font-size: 13px;
 }
+
 /* login page */
 .login-main {
     width: 400px;
@@ -52,4 +54,25 @@
 }
 .login-main .login-main-input {
     margin-top: 10px;
+}
+
+/* tag form */
+.tag-form ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.tag-form ul li {
+    margin: 0.2em 0.1em;
+}
+.tag-form input {
+    box-sizing: border-box;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
 }
