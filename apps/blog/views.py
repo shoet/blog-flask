@@ -48,15 +48,8 @@ def send_from_remote_file():
 @blog.route('/', methods=['GET'])
 def index():
     post_items = (db.session
-                    .query(
-                        PostItem.id,
-                        PostItem.title,
-                        # PostItem.post_tags, # TODO
-                        PostItem.description,
-                        PostItem.category,
-                        PostItem.thumbnail_image_name,
-                        PostItem.created_at,
-                        )
+                    .query(PostItem)
+                    .outerjoin(PostTag, PostItem.id == PostTag.post_id)
                     .order_by(PostItem.created_at.desc())
                     .all())
     return render_template('blog/index.html', post_items=post_items)
