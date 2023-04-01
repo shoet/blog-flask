@@ -7,6 +7,7 @@ from apps.app import db
 class PostItem(db.Model):
     __tablename__ = 'post_item'
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('admin_user.id'))
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
