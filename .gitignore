@@ -5,5 +5,8 @@ venv
 migrations
 apps/images/thumbnail/*
 !.gitkeep
+db.sqlite*
+*-litestream
+credential.json
 
 deploy.sh

@@ -41,25 +41,7 @@ def create_app(env):
     app = Flask(__name__)
 
     app.config.from_object(config[env])
-
-    if app.config.get('GCP_CLOUD_SQL_UNIX_SOCKET_DIR') is not None and app.config.get('GCP_CLOUD_SQL_INSTANCE_NAME') is not None:
-        app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+pg8000://"
-        creator = get_conn_pg8000(
-            unix_sock=f'{app.config["GCP_CLOUD_SQL_UNIX_SOCKET_DIR"]}/{app.config["GCP_CLOUD_SQL_INSTANCE_NAME"]}/.s.PGSQL.5432',
-            user=app.config['PG_USER'],
-            password=app.config['PG_PASSWORD'],
-            database=app.config['PG_DB'],
-            schema=app.config['PG_SCHEMA']
-        )
-        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'creator': creator}
-    else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = (
-                                            f'postgresql://{app.config["PG_HOST"]}:'+
-                                            f'{app.config["PG_PORT"]}/'+
-                                            f'{app.config["PG_DB"]}?'+
-                                            f'user={app.config["PG_USER"]}&'+
-                                            f'password={app.config["PG_PASSWORD"]}&'+
-                                            f'options=-c%20search_path={app.config["PG_SCHEMA"]}')
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{Path(__file__).parent.parent}/{app.config["LOCAL_DB_PATH"]}'
         
     db.init_app(app)
     Migrate(app, db)
