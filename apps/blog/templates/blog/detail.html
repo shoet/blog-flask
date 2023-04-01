@@ -11,10 +11,12 @@
                     <h1 class="fw-bold">{{ post_item.title }}</h1>
                     <ul class="list-inline">
                         {% for tag in post_item.post_tags %}
-                        <!-- <span class="badge rounded-pill bg-dark">{{ tag.tag_name }}</span> -->
                         <span class="badge bg-dark">{{ tag.tag_name }}</span>
                         {% endfor %}
                     </ul>
+                    <div class="d-flex flex-column">
+                        <img class="thumbnail-image" src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}">
+                    </div>
                     {{ md_content }}
                 </div>
             </div>

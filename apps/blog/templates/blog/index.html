@@ -9,11 +9,11 @@
         <div class="col-md-4 mb-3">
             <div class="card text-dark">
                 <img 
-                    src="{{ url_for('blog.thumbnail_image_file', filename=post_item.thumbnail_image_name) }}" 
+                    src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}" 
                     class="card-img-top custom-card-img-top"
                     alt="thumbnail"
                 >
-                <div class="card-body">
+                <div class="card-body" style="overflow: hidden;">
                     <h4 class="card-title">{{ post_item.title }}</h5>
                     <ul class="list-inline">
                         {% for tag in post_item.post_tags %}

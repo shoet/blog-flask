@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from apps.app import db
@@ -12,6 +13,7 @@ class PostItem(db.Model):
     category = db.Column(db.String, nullable=False)
     is_public = db.Column(db.Boolean, default=True)
     thumbnail_image_name = db.Column(db.String, nullable=True)
+    content_file_name = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
