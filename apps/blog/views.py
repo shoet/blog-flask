@@ -67,6 +67,8 @@ def thumbnail_image_file_storage_public(image_file_name):
 def split_tags(tag):
     tag_obj = []
     for t in tag.split(','):
+        if t == '':
+            continue
         tag_obj.append(PostTag(tag_name=t))
     return tag_obj
 
