@@ -15,6 +15,8 @@ class AdminUser(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now)
 
+    post_tags = db.relationship('PostItem', backref='admin_user')
+
     @property
     def password(self):
         raise NotImplementedError

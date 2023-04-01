@@ -14,7 +14,7 @@ from flask import (
     current_app,
     send_from_directory
 )
-from flask_login import login_required
+from flask_login import login_required, current_user
 import markdown
 
 from apps.app import db
@@ -67,6 +67,8 @@ def thumbnail_image_file_storage_public(image_file_name):
 def split_tags(tag):
     tag_obj = []
     for t in tag.split(','):
+        if t == '':
+            continue
         tag_obj.append(PostTag(tag_name=t))
     return tag_obj
 
@@ -103,6 +105,7 @@ def post_item():
     投稿画面に一時保存
     '''
     if form.validate_on_submit():
+        user_id = current_user.id
         title = form.title.data
         category = form.category.data
         body = form.body.data
@@ -111,6 +114,7 @@ def post_item():
         is_public = form.is_public.data
         post_tags = split_tags(form.tag.data)
         post_item = PostItem(
+            user_id=user_id,
             title=title, 
             body='', # TODO
             description=description,

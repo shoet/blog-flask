@@ -35,6 +35,11 @@
     background-color: black;
     font-size: 13px;
 }
+.content-attribute {
+    vertical-align:middle;
+    font-weight: 500;
+    color: gray;
+}
 
 blockquote{
     position:relative;

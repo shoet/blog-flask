@@ -10,6 +10,10 @@
                 <div class="detail-content">
                     <h1 class="fw-bold">{{ post_item.title }}</h1>
                     <ul class="list-inline">
+                        <div class="list-inline-item content-attribute">
+                            <span>{{ post_item.created_at.strftime('%Y.%m.%d') }}</span>
+                            <span>{{ post_item.admin_user.username }}</span>
+                        </div>
                         {% for tag in post_item.post_tags %}
                         <span class="badge bg-dark">{{ tag.tag_name }}</span>
                         {% endfor %}
