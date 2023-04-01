@@ -20,8 +20,10 @@
 }
 
 /* detail page content */
-.detail-content h1 {
-    padding-bottom: 30px;
+.detail-content .thumbnail-image {
+    height: 400px; 
+    object-fit: contain;
+    object-position: left;
 }
 .detail-content h2 {
     padding-top: 20px;
@@ -32,6 +34,27 @@
     color: white;
     background-color: black;
     font-size: 13px;
+}
+
+blockquote{
+    position:relative;
+    border-left:3px solid #24264e;
+}
+blockquote:before{
+    position:absolute;
+    font-family:'FontAwesome';
+    font-size: 20px;
+    color:#24264e;
+}
+blockquote p{
+    position:relative;
+    padding-left:10px;
+}
+blockquote cite{
+    display: block;
+    font-size:0.8rem;
+    color:#24264e;
+    text-align:right;
 }
 
 /* login page */
