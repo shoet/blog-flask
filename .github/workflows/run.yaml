@@ -11,12 +11,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Checkout submoduel
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: true
-          token: ${{ secrets.SUB_MODULE_TOKEN }}
+      - name: SSH Setting
+        env:
+          TOKEN: ${{ secrets.SUB_MODULE_KEY }}
+        run: |
+          mkdir -p /home/runner/.ssh/
+          echo -e "$TOKEN" > /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa
+
+      - name: Checkout submodules
+        shell: bash
+        run: git submodule update --init --force --recursive
 
       - name: GCP Auth
         id: auth
@@ -30,8 +35,8 @@ jobs:
         with:
           # gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
           registry: gcr.io
-          project_id: shoet-blog
-          image_name: shoet-blog
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          image_name: blog-flask
           image_tag: latest,v1
           dockerfile: ./deploy/prod/Dockerfile
           context: .
