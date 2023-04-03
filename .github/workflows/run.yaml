@@ -20,8 +20,8 @@ jobs:
           chmod 600 /home/runner/.ssh/id_rsa
 
       - name: Checkout submodules
-          shell: bash
-          run: git submodule update --init --force --recursive
+        shell: bash
+        run: git submodule update --init --force --recursive
 
       - name: GCP Auth
         id: auth
