@@ -12,12 +12,7 @@ from flask_migrate import Migrate
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
 
-from apps.config import config
-
 base_dir = Path(__file__).parent.parent
-if not os.path.exists(Path(base_dir, '.env')):
-    raise Exception('.env file is not found.')
-load_dotenv()
 
 db = SQLAlchemy()
 debug_toolbar = DebugToolbarExtension()
@@ -26,21 +21,31 @@ login_manager = LoginManager()
 # login_manager.login_message = ''
 
 
-def get_conn_pg8000(unix_sock ,user, password, database, schema):
-    # set default schema
-    import pg8000
-    def wrapper():
-        conn = pg8000.connect(unix_sock=unix_sock, user=user, password=password, database=database) 
-        cursor = conn.cursor()
-        cursor.execute(f'set search_path to "{schema}";')
-        return conn
-    return wrapper
+def get_env_file_name(mode):
+    print(f'Running mode: {mode}')
+    if mode == 'prod':
+        env_file = '.env.prod'
+    elif mode == 'dev':
+        env_file = '.env.dev'
+    elif mode == 'local':
+        env_file = '.env.local'
+    else:
+        raise Exception(f'CONFIGURE_MODE {mode} is invalid')
+    return env_file
+    
 
+def create_app():
+    env_file = Path(base_dir / 'configuration' / get_env_file_name(os.environ.get('CONFIGURE_MODE')))
+    if not os.path.exists(env_file):
+        raise Exception(f'env file is not found. {env_file}')
+    load_dotenv(env_file)
 
-def create_app(env):
+    from apps.config import config
+
     app = Flask(__name__)
 
-    app.config.from_object(config[env])
+    app.config.from_object(config[os.environ.get('CONFIGURE_MODE')])
+
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{Path(__file__).parent.parent}/{app.config["LOCAL_DB_PATH"]}'
         
     db.init_app(app)

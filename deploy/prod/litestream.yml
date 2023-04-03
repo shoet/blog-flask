@@ -1,4 +1,0 @@
-dbs:
-  - path: ./db.sqlite
-    replicas:
-      - url: gcs://blog-flask/prod/db
