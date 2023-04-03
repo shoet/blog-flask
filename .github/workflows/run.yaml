@@ -8,13 +8,20 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:      
-      - name: Checkout submoduel
+      - name: Checkout
         uses: actions/checkout@v3
-        with:
-          path: 'configuration'
-          fetch-depth: 0
-          submodules: true
-          token: ${{ secrets.SUB_MODULE_TOKEN }}
+
+      - name: SSH Setting
+        env:
+          TOKEN: ${{ secrets.SUB_MODULE_KEY }}
+        run: |
+          mkdir -p /home/runner/.ssh/
+          echo -e "$TOKEN" > /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa
+
+      - name: Checkout submodules
+          shell: bash
+          run: git submodule update --init --force --recursive
 
       - name: GCP Auth
         id: auth
