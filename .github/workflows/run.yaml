@@ -14,6 +14,7 @@ jobs:
       - name: Checkout submoduel
         uses: actions/checkout@v3
         with:
+          path: 'configuration'
           fetch-depth: 0
           submodules: true
           token: ${{ secrets.SUB_MODULE_TOKEN }}
