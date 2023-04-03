@@ -1,5 +1,5 @@
 name: Push to GCR GitHub Action
-# on: [push]
+on: workflow_dispatch
 jobs:
   build-and-push-to-gcr:
     runs-on: ubuntu-18.04
