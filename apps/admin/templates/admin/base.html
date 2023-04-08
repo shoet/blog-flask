@@ -2,7 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8"/>
-        <title>{% block title %}{% endblock %}</title>
+        <title>{{ config['APP_TITLE'] }}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
     </head>

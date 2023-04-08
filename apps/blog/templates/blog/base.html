@@ -2,16 +2,19 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8"/>
-        <title>{% block title %}{% endblock %}</title>
+        <title>{{ config['APP_TITLE'] }}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
     </head>
-    <body style="padding-top:50px">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('blog.index') }}">{{ config['APP_TITLE'] }}</a>
+    <body>
+        <header class="blog-header">
+            <div class="blog-title">
+                <a href="{{ url_for('blog.index') }}" style="text-decoration: none;">
+                    <h3 class="blog-title-main">{{ config['APP_TITLE'] }}<span> &#128123;</span></h3>
+                </a>
+                <p class="blog-title-sub">エンジニアリングについて。その他活動も少し。</p>
             </div>
-        </nav>
+        </header>
         <div class="page-content">
             {% block content %}{% endblock %}
         </div>
