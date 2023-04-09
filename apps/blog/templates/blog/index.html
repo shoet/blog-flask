@@ -1,30 +1,39 @@
 {% extends 'blog/base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<div class="container">
-    <h1 class="display-6">Activity</h1>
-    <div class="row">
-        {% for post_item in post_items %}
-        <div class="col-md-4 mb-3">
-            <div class="card text-dark">
-                <img 
-                    src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}" 
-                    class="card-img-top custom-card-img-top"
-                    alt="thumbnail"
-                >
-                <div class="card-body" style="overflow: hidden;">
-                    <h4 class="card-title">{{ post_item.title }}</h5>
-                    <ul class="list-inline">
-                        {% for tag in post_item.post_tags %}
-                        <span class="badge bg-dark">{{ tag.tag_name }}</span>
-                        {% endfor %}
-                    </ul>
-                    <p class="card-text">{{ post_item.description + '...' }}</p>
-                </div>
-                <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}" class="stretched-link"></a>
+<div class="home-sub1">
+    sub1
+</div>
+<div class="home-main">
+    <h1>Activity</h1>
+    {% for post_item in post_items %}
+    <div class="card">
+        <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}"></a>
+        <div class="card-img">
+            <img src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}" alt="thumbnail">
+        </div>
+        <div class="card-content">
+            <div class="card-title">
+                {{ post_item.title }}
+            </div>
+            <div class="card-detail">
+                {{ post_item.description }}
+            </div>
+            <div class="card-tags">
+                <ul>
+                    <li class="card-posted">
+                        {{ post_item.created_at.strftime('%Y.%m.%d') }}
+                    </li>
+                    {% for tag in post_item.post_tags %}
+                    <li class="card-tag">{{ tag.tag_name }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
+<div class="home-sub2">
+    sub2
 </div>
 {% endblock %}
