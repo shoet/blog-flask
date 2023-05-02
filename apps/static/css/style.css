@@ -45,7 +45,7 @@ body {
 
 /* layout */
 .ly_general {
-    width: 1230px;
+    max-width: 1230px;
     padding-left: 15px;
     padding-right: 15px;
     margin-left: auto;
