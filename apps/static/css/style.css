@@ -174,10 +174,10 @@ body {
     padding: 20px 20px 20px 0px;
 }
 .bl_card_width_image_wrapper img {
-    object-fit: cover;
+    object-fit: contain;
     padding: 0px 30px 30px 30px;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-position: center center;
 }
 .bl_card_width_content_wrapper .title {
