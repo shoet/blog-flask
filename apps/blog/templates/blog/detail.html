@@ -1,30 +1,28 @@
 {% extends 'blog/base.html' %}
 {% block title %}{{ post_item.title }}{% endblock %}
 {% block content %}
-    {# サムネイル #}
-    {# <h2>{{ post_item.title }}</h2> #}
-    <section class="container-fluid">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="detail-content">
-                    <h1 class="fw-bold">{{ post_item.title }}</h1>
-                    <ul class="list-inline">
-                        <div class="list-inline-item content-attribute">
-                            <span>{{ post_item.created_at.strftime('%Y.%m.%d') }}</span>
-                            <span>{{ post_item.admin_user.username }}</span>
-                        </div>
-                        {% for tag in post_item.post_tags %}
-                        <span class="badge bg-dark">{{ tag.tag_name }}</span>
-                        {% endfor %}
-                    </ul>
-                    <div class="d-flex flex-column">
-                        <img class="thumbnail-image" src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}">
-                    </div>
-                    {{ md_content }}
-                </div>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-    </section>
+<ol class="breadcrumbs">
+    <li class="breadcrumbs__li">
+        <a href="{{ url_for('blog.index') }}">Home</a>
+    </li>
+    <li class="breadcrumbs__li">/</li>
+    <li class="breadcrumbs__li">{{ post_item.title }}</li>
+</ol>
+<div class="detail-content">
+    <h1 class="fw-bold">{{ post_item.title }}</h1>
+    <div class="tags">
+        <ul class="tags__ul">
+            <li class="subTitle">
+                {{ post_item.created_at.strftime('%Y.%m.%d') }}
+            </li>
+            {% for tag in post_item.post_tags %}
+            <li class="tag bg_black">{{ tag.tag_name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="d-flex flex-column">
+        <img class="thumbnail-image" src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}">
+    </div>
+    {{ md_content }}
+</div>
 {% endblock %}
