@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h1>{{ keyword }} の検索結果</h1>
+{% for post_item in post_items %}
+<div class="bl_card_width">
+    <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}"></a>
+    <div class="bl_card_width_image_wrapper">
+        <img src="{{ post_item.thumbnail_image_name|thumbnail_image_file_storage_public }}" alt="thumbnail">
+    </div>
+    <div class="bl_card_width_content_wrapper">
+        <div class="title">
+            {{ post_item.title }}
+        </div>
+        <div class="detail">
+            {{ post_item.description }}
+        </div>
+        <div class="tags">
+            <ul>
+                <li class="subTitle">
+                    {{ post_item.created_at.strftime('%Y.%m.%d') }}
+                </li>
+                {% for tag in post_item.post_tags %}
+                <li class="tag bg_black">{{ tag.tag_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

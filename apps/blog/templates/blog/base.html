@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/> -->
     </head>
     </head>
@@ -42,13 +43,18 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="sub-box">
+                    <div class="sub-box">
                         <div class="sub-box__title">検索</div>
                         <div class="sub-box__divider"/></div>
                         <div class="sub-box__body">
-                            <input type="text" placeholder="Search activity 未実装">
+                            <form method="get" class="search-form" action="{{ url_for('blog.search_activity', keyword='') }}">
+                                <div>
+                                    <input type="text" value="" name="keyword" class="search-form__input" placeholder="記事を検索">
+                                    <button type="submit" class="search-form__btn"></button>
+                                </div>
+                            </form>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="sub-box">
                         <div class="sub-box__title">SNS／リンク</div>
                         <div class="sub-box__divider"></div>

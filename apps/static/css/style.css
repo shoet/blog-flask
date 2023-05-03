@@ -139,6 +139,46 @@ body {
 .sub-box__link-item a {
     text-decoration: none;
 }
+.search-form {
+    margin: 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 3px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.search-form__input {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1.0rem;
+    line-height: 1.5rem;
+    padding-right: 1.7rem;
+    position: relative;
+}
+.search-form__input::placeholder {
+    font-size: 1.0rem;
+}
+.search-form__btn {
+    border: none;
+    background: none;
+    position: absolute;
+    top: 52%;
+    right: 3px;
+    transform: translateY(-50%);
+    color: gray;
+    font-family: 'FontAwesome';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+.search-form__btn::after {
+    content: '\f002';
+    background-color: transparent;
+}
 
 /* home page */
 .bl_card_width {
