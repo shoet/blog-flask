@@ -12,7 +12,8 @@ from flask import (
     abort,
     Markup,
     current_app,
-    send_from_directory
+    send_from_directory,
+    request
 )
 from flask_login import login_required, current_user
 import markdown
@@ -38,7 +39,6 @@ def save_thumbnail_image(image):
     file.save(image_path)
     return image_uuid_file_name
 
-@blog.route('/', methods=['GET'])
 def index():
     post_items = (db.session
                     .query(PostItem)
@@ -48,7 +48,6 @@ def index():
     return render_template('blog/index.html', post_items=post_items)
 
 
-@blog.route('/images/<string:filename>', methods=['GET'])
 def thumbnail_image_file(filename):
     print(filename)
     return send_from_directory(Path(current_app.config['IMAGE_PATH'], 'thumbnail'), filename)
@@ -94,8 +93,6 @@ def save_to_storage(form):
         form.body.data)
     return thumbnail_image_file_name, content_file_name
 
-
-@blog.route(f'/{os.environ["PAGE_POST_ITEM_ROUTE"]}', methods=['GET', 'POST'])
 @login_required
 def post_item():
     form = PostForm()
@@ -131,7 +128,6 @@ def post_item():
     return render_template('blog/post.html', form=form)
 
 
-@blog.route('/activities/<int:post_item_id>', methods=['GET'])
 def edit_item(post_item_id):
     post_item = db.session.query(PostItem).filter(PostItem.id == post_item_id).first()
 
@@ -146,3 +142,23 @@ def edit_item(post_item_id):
 
     md_content = Markup(markdown.markdown(body, extensions=['fenced_code']))
     return render_template('blog/detail.html', post_item=post_item, md_content=md_content)
+
+def search_activity():
+    args = request.args
+    keyword = args.get('keyword')
+    if keyword is None:
+        return redirect(url_for('blog.index'))
+    post_items = (db.session
+                    .query(PostItem)
+                    .filter(PostItem.title.like(f'%{keyword}%'))
+                    .outerjoin(PostTag, PostItem.id == PostTag.post_id)
+                    .order_by(PostItem.created_at.desc())
+                    .all())
+    return render_template('blog/search.html', keyword=keyword, post_items=post_items)
+
+
+blog.add_url_rule('/', view_func=index, methods=['GET'])
+blog.add_url_rule('/images/<string:filename>', view_func=thumbnail_image_file, methods=['GET'])
+blog.add_url_rule(f'/{os.environ["PAGE_POST_ITEM_ROUTE"]}', view_func=post_item, methods=['GET', 'POST'])
+blog.add_url_rule('/activities/<int:post_item_id>', view_func=edit_item, methods=['GET'])
+blog.add_url_rule('/search', view_func=search_activity, methods=['GET'])

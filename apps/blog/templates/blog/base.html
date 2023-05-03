@@ -4,7 +4,11 @@
         <meta charset="utf-8"/>
         <title>{{ config['APP_TITLE'] }}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/> -->
+    </head>
     </head>
     <body>
         <header class="blog-header">
@@ -16,8 +20,57 @@
             </div>
         </header>
         <div class="page-content">
-            {% block content %}{% endblock %}
+            <div class="ly_general">
+                <div class="ly_main">
+                    {% block content %}{% endblock %}
+                </div>
+                <div class="ly_sub">
+                    <div class="sub-box">
+                        <div class="sub-box__title">プロフィール</div>
+                        <div class="sub-box__divider"></div>
+                        <div class="sub-box__body">
+                            <div class="sub-box__image-wrapper">
+                                <img src="{{ url_for('static', filename='image/profile_icon.png') }}" alt="profile">
+                            </div>
+                            <div class="sub-box__content-wrapper">
+                                <div class="sub-box__name">
+                                    <a href="#" class="sub-box__link">shoet</a>
+                                </div>
+                                <div class="sub-box__text">
+                                    エンジニア／趣味ギタリスト<br>
+                                    最近はデータエンジニア寄り。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sub-box">
+                        <div class="sub-box__title">検索</div>
+                        <div class="sub-box__divider"/></div>
+                        <div class="sub-box__body">
+                            <form method="get" class="search-form" action="{{ url_for('blog.search_activity', keyword='') }}">
+                                <div>
+                                    <input type="text" value="" name="keyword" class="search-form__input" placeholder="記事を検索">
+                                    <button type="submit" class="search-form__btn"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="sub-box">
+                        <div class="sub-box__title">SNS／リンク</div>
+                        <div class="sub-box__divider"></div>
+                        <div class="sub-box__body">
+                            <ul class="sub-box__link-list">
+                                <li class="sub-box__link-item">
+                                    <a href="https://pages.shoet.team/" target="_blank" class="sub-box__link">CSS訓練所</a>
+                                </li>
+                                <li class="sub-box__link-item">
+                                    <a href="https://www.youtube.com/channel/UCgtR_rFOM9BbRiAIA_4PR2g" target="_blank" class="sub-box__link">YouTube Channel</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.ly_general -->
         </div>
-        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     </body>
 </html>

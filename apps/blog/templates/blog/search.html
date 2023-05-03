@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}Search{% endblock %}
 {% block content %}
-<h1>Activity</h1>
+<h1>{{ keyword }} の検索結果</h1>
 {% for post_item in post_items %}
 <div class="bl_card_width">
     <a href="{{ url_for('blog.edit_item', post_item_id=post_item.id) }}"></a>
