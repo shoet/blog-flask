@@ -9,7 +9,7 @@ class PostForm(FlaskForm):
         'タイトル',
         validators=[
             DataRequired(message='タイトルは必須です。'),
-            Length(max=50, message='50文字以内で入力してください。'),
+            Length(max=200, message='200文字以内で入力してください。'),
         ]
     )
 
