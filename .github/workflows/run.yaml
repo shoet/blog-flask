@@ -40,3 +40,4 @@ jobs:
           image_tag: latest,v1
           dockerfile: ./deploy/prod/Dockerfile
           context: .
+          build_args: DB_REPLICA_REMOTE_PATH=${{ secrets.DB_REPLICA_REMOTE_PATH }}
