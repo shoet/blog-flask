@@ -2,6 +2,7 @@ import os
 import uuid
 from pathlib import Path
 import html
+import re
 
 from bs4 import BeautifulSoup
 from flask import (
@@ -127,6 +128,11 @@ def post_item():
         
     return render_template('blog/post.html', form=form)
 
+def add_link_target_blank(html):
+    regex = '<a href="(.*)"'
+    repl_fmt = lambda match: f'<a href="{match.group(1)}" target="_blank"'
+    ret = re.sub(regex, repl_fmt, html)
+    return ret
 
 def edit_item(post_item_id):
     post_item = db.session.query(PostItem).filter(PostItem.id == post_item_id).first()
@@ -140,7 +146,13 @@ def edit_item(post_item_id):
         os.path.join(current_app.config.get('GCP_CLOUD_STORAGE_CONTENT_PATH'), post_item.content_file_name)
     ).decode('utf-8')
 
-    md_content = Markup(markdown.markdown(body, extensions=['fenced_code']))
+    md_extensions = [
+        'fenced_code', 
+    ]
+    md = markdown.Markdown(extensions=md_extensions)
+    html = md.convert(body)
+    html = add_link_target_blank(html)
+    md_content = Markup(html)
     return render_template('blog/detail.html', post_item=post_item, md_content=md_content)
 
 def search_activity():

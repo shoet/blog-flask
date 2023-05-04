@@ -1,5 +1,7 @@
 FROM python:3.9
 
+ARG DB_REPLICA_REMOTE_PATH 
+
 WORKDIR /usr/src/
 
 RUN apt-get update && apt-get install -y sqlite3
@@ -21,7 +23,7 @@ RUN echo "building..."
 ENV CONFIGURE_MODE=prod
 ENV FLASK_APP=apps.app:create_app
 ENV FLASK_RUN_PORT=3000
-ENV DB_REPLICA_REMOTE_PATH=gcs://blog-flask/prod/db
+ENV DB_REPLICA_REMOTE_PATH=$DB_REPLICA_REMOTE_PATH
 
 EXPOSE 3000
 

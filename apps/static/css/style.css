@@ -44,26 +44,30 @@ body {
 }
 
 /* layout */
-.ly_general {
-    max-width: 1230px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: auto;
-    margin-right: auto;
+@media (max-width: 767px) { /* SP */
 }
-.ly_general:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-.ly_main {
-    width: 70%;
-    float:left;
-}
-.ly_sub {
-    padding-left: 30px;
-    width: 30%;
-    float:left;
+@media (min-width: 768px) { /* PC */
+    .ly_general {
+        max-width: 1230px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .ly_general:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .ly_main {
+        width: 70%;
+        float:left;
+    }
+    .ly_sub {
+        padding-left: 30px;
+        width: 30%;
+        float:left;
+    }
 }
 .ly_linkList {
     margin-top: 30px;
@@ -117,6 +121,9 @@ body {
 .sub-box__link:hover,
 .sub-box__link:focus {
     color: black;
+}
+.sub-box__link:visited {
+    color: #977d3b;
 }
 .sub-box__name {
     font-size: 1.0rem;
@@ -265,8 +272,12 @@ body {
 }
 
 /* detail page content */
+.detail-content {
+    font-size: 0.9rem;
+}
 .detail-content .thumbnail-image {
     height: 400px; 
+    width: 100%;
     object-fit: contain;
     object-position: left;
 }
@@ -278,11 +289,34 @@ body {
     padding-top: 20px;
     border-bottom: 1px solid #dee2e6!important
 }
+.detail-content code {
+    font-size: 0.7rem;
+    padding: 1px;
+    margin: 0.1rem 0.2rem;
+    border: 1px solid rgb(255, 68, 99);
+    border-radius: 3px;
+    background-color: rgba(255, 192, 203, 0.304);
+    color: rgb(254, 87, 115);
+}
 .detail-content pre {
     padding: 5px;
     color: white;
     background-color: black;
     font-size: 13px;
+    overflow-x: auto;
+}
+.detail-content pre code {
+    padding: unset;
+    border: unset;
+    color: unset;
+    background-color: unset;
+    font-size: unset;
+}
+.detail-content a {
+    color: #977d3b;
+}
+.detail-content a:visited {
+    color: #977d3b;
 }
 .content-attribute {
     vertical-align:middle;
