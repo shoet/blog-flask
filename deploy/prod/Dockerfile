@@ -1,5 +1,7 @@
 FROM python:3.9
 
+ARG DB_REPLICA_REMOTE_PATH 
+
 WORKDIR /usr/src/
 
 RUN apt-get update && apt-get install -y sqlite3
